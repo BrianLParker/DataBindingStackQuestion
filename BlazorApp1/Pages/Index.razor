@@ -1,0 +1,36 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<input type="number" @bind="calc.BasicPrice" @bind:event="oninput" class="form-control" />
+<input type="number" @bind="calc.Option" @bind:event="oninput" class="form-control" />
+<input type="number" @bind="calc.Total" class="form-control" readonly />
+
+@code {
+    SomeModel calc = new SomeModel();
+    public class SomeModel
+    {
+        public double BasicPrice
+        {
+            get => basicPrice;
+            set { basicPrice = value; UpdateTotal(); }
+        }
+        public double Option
+        {
+            get => option;
+            set { option = value; UpdateTotal(); }
+        }
+
+        public double Total { get; set; }
+
+        internal void UpdateTotal()
+        {
+            Total = BasicPrice + Option;
+        }
+
+        private double basicPrice;
+        private double option;
+    }
+}
